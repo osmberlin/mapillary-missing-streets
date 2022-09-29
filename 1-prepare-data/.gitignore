@@ -1,2 +1,3 @@
 output.geojson
 node_modules
+.env
