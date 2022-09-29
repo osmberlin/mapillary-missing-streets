@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "module": "es2020",
+    "target": "es2021",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "esModuleInterop": true
+  }
+}
