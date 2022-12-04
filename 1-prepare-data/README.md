@@ -50,4 +50,4 @@ This API does not just return an `is_pano=true|false`, but three values:
 
 - `spherical`
   Eg. 360° GoPro Max – https://www.mapillary.com/app/?pKey=573820750694387&focus=photo
-  => This is, what we will treat as panoramic picture.
+  _=> This is, what we will treat as panoramic picture._
