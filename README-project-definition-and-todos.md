@@ -33,9 +33,15 @@ About: The Mapillary JavaScript API gives access to the needed data but limits p
 
 About: The Mapillary Vector Tiles Endpoint gives access to the needed data at zoom level 14(?). The vector tiles are paginated by design.
 
+**Option 2.1** (new 2023-05): QGIS supports downloading vector tiles for a given reagion https://twitter.com/lutraconsulting/status/1659183212856332291 
+
+**Option 2.2**: Build a custom script…
+
 - The script needs to translate a given bbox to this vector tiles format
 - Then transform the vector tile files to something like geojson
 - Then merge the files back into one
+
+(There are scripts out there to do this for osm.org image tiles that might be a starting point to get this going…)
 
 ## (2) Prepare Mapillary Data
 
