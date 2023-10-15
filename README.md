@@ -1,20 +1,50 @@
-# Tool: Mapillary Missing Streets (by type and age)
+# mapillary-missing-streets
 
-> A set of tools to generate a list of streets that are missing mapillary street-level imagery, filtered by type (360°) and date (newer than 1.5 years).
+We want to know which OpenStreetMap street segment needs fresh images.
+We can use this data to plan our next Mapillary image capturing tour.
 
-## Solution 1: First try…
+## How to use
 
-**(!) This solution is still very much work in progress (!)**
+1. Update the `inputBbox` in `./config.const.ts`
+2. Run `npm run mapillary` to fetch and store the raw mapillary API output as well as the processed pictures
+3. If needed, run `npm run mapillary:retry` to retry api requests that failed
+4. Run `npm run roads` to fetch and prepare the road network from OpenStreetMap (Overpass)
+5. Run `npm run matching` to create the final road network which holds information in the mapillary pictures that are part of the buffer of the given road segment
+6. Use `./matching/data/matchedRoads.geojson` to plan your next trip
 
-Help is very welcome…
+## Concept
 
-**TODOs:**
+- We fetch all mapillary image points. We ignore images that are older than `maxAgeMonth`.
+- We consider all images that are older than `consideredFreshYears` as _not_ fresh anymore.
+- We match the images to the OpenStreetMap Roads by a buffer (`bufferByRoadClass`).
+- A road is considered fully captures when it has enough images for it's road length, give a certain capturing time and driving speed, see `distanceBetweenImages`.
+- We do this calculation for all images (that are in our image pool) and for the subset of panoramic images.
+  The resulting road network can be filtered by the properties:
+  ```json
+  "complete": true,          // considering all fetched images
+  "completePano": false,     // considering all fetched panorama images
+  "completeFresh": false,    // considering all fetched images that we consider fresh
+  "completeFreshPano": false // considering all fetched panorama images that we consider fresh
+  ```
+- Unfortunatelly the API fetching part is a bit more complex. The [Mapillary API](https://www.mapillary.com/developer/api-documentation) returns max 2,000 images. To handle this, we first split our `inputBbox` in squares and then make those squares smaller until we get a result set below 2,000 images. Then we need to handle random API errors by retrying only the failed squares.
 
-- See [JavaScript TODOs](./1-prepare-data/README.md)
-- See [QGis TODOs](./2-process-data/README.md)
-- Add step 3: Visualize data
-- Add step 4: Create routes based on this data; a good starting point for this is https://pretalx.com/fossgis2022/talk/EU8RPG/.
+## Development
 
-## Solution 2: Project definition
+This project was created using [Bun](https://bun.sh).
 
-What we learned from Solution 1 is, that me might need a better approach. As a result, I the the 5 steps required to make this project awesome in [README-project-definition-and-todos.md](README-project-definition-and-todos.md)
+- Install dependencies `bun install`
+- Check out `npm run` for a list of scripts to use
+
+## Withlist
+
+### a. Map
+
+We need a map to look at this data.
+
+### b. Routing
+
+Create routes based on this data; a good starting point for this is https://pretalx.com/fossgis2022/talk/EU8RPG/.
+
+### c. Split roads
+
+Right now, we take the OSM road segments as they are. However, long roads will have issues with this approach. Ideally we would split roads somehow – eg. on relevant intersections – to get more actionable results.

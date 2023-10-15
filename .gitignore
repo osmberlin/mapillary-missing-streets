@@ -1,3 +1,7 @@
-
+*.geojson
+*.geojsonl
+*.jsonl
+node_modules
+.env
 .DS_Store
-_testfiles
+_first_try/*

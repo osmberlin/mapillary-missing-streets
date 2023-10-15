@@ -1,0 +1,28 @@
+{
+  "name": "mapillary-missing-streets",
+  "version": "0.1.0",
+  "description": "A set of tools to generate a list of streets that are missing mapillary street-level imagery, filtered by type (360°) and date (newer than 1.5 years).",
+  "type": "module",
+  "scripts": {
+    "mapillary": "bun mapillary/mapillary.ts",
+    "mapillary:retry": "bun mapillary/retryApiErrors.ts",
+    "roads": "bun roads/roads.ts",
+    "matching": "bun matching/matching.ts"
+  },
+  "author": "Tobias Jordans <t@tobiasjordans.de>",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@turf/turf": "7.0.0-alpha.2",
+    "@types/node": "^20.8.6",
+    "bun-types": "latest",
+    "date-fns": "^2.30.0",
+    "geojson2ndjson": "^0.5.0",
+    "osmtogeojson": "^3.0.0-beta.5",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
