@@ -1,7 +1,7 @@
-# mapillary-missing-streets
+# Mapillary Missing Streets
 
-We want to know which OpenStreetMap street segment needs fresh images.
-We can use this data to plan our next Mapillary image capturing tour.
+> 📸🗺️
+> Learn which [OpenStreetMap](https://www.openstreetmap.org/) (OSM) street segments need fresh/current [Mapillary](https://www.mapillary.com/app/) images. And which of those don't have 360° images, yet. The resulting road data can be used to plan your next Mapillary image capturing trip.
 
 ## How to use
 
