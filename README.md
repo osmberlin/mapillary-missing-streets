@@ -35,16 +35,25 @@ This project was created using [Bun](https://bun.sh).
 - Install dependencies `bun install`
 - Check out `npm run` for a list of scripts to use
 
-## Withlist
+## Roadmap / Whish list
 
-### a. Map
+### Map
 
 We need a map to look at this data.
 
-### b. Routing
+### Resumability
+
+What if we want to update the data for a big region? We should add a `/mapillary/resume.ts` which polls the API for a given time frame like…
+
+- start date: time of last run minus 14 days; we need a buffer to make sure images that where uploaded but not availabe, yet are presetnt
+- end date: null / today
+
+We then need to merge the datasets, remove duplicates and append our new data.
+
+### Routing
 
 Create routes based on this data; a good starting point for this is https://pretalx.com/fossgis2022/talk/EU8RPG/.
 
-### c. Split roads
+### Split roads
 
 Right now, we take the OSM road segments as they are. However, long roads will have issues with this approach. Ideally we would split roads somehow – eg. on relevant intersections – to get more actionable results.
