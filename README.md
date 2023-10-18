@@ -26,7 +26,7 @@
 - A road is considered fully captures when it has enough images for it's road length, give a certain capturing time and driving speed, see `distanceBetweenImages`.
 - We do this calculation for all images (that are in our image pool) and for the subset of panoramic images.
   The resulting road network can be filtered by the properties:
-  ```json
+  ```jsonc
   "complete": true,          // considering all fetched images
   "completePano": false,     // considering all fetched panorama images
   "completeFresh": false,    // considering all fetched images that we consider fresh
