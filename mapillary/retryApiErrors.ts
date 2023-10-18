@@ -26,12 +26,8 @@ const raw = await file.text()
 
 // Handle each error line separately
 // If successfull, we remove it…
-const lines = raw.split('\n')
+const lines = raw.split('\n').filter(Boolean)
 for (const [index, line] of lines.entries()) {
-  if (!(typeof line === 'object' && Object.keys(line).length === 0)) {
-    console.log('Skipping line', JSON.stringify(line))
-    continue
-  }
   try {
     const json = JSON.parse(line) satisfies ResumeApiError
     await downloadData(json.square)
