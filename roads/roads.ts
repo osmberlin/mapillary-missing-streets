@@ -6,7 +6,7 @@ import { roadData } from './utils/roadData'
 
 const apiUrl = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`
 
-console.log('START', 'Starting', import.meta.dir)
+console.log('START', 'Starting', import.meta.file)
 console.log('NEXT', 'Download', decodeURIComponent(apiUrl))
 
 const response = await fetch(apiUrl)

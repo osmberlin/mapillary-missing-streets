@@ -12,7 +12,7 @@ import {
 } from './utils/files'
 import { lineFromObject } from './utils/lineFromObject'
 
-console.log('START', 'Starting', import.meta.dir)
+console.log('START', 'Starting', import.meta.file)
 
 // The retry should append to the existing files
 // Bun has no native append to files, so we first write the previous file…

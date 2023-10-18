@@ -5,7 +5,7 @@ import { roadsFile } from '../roads/utils/files'
 import { roadData } from '../roads/utils/roadData'
 import { matchedRoadsFile, matchingDebuggingRoadsFile } from './utils/files'
 
-console.log('START', 'Starting', import.meta.dir)
+console.log('START', 'Starting', import.meta.file)
 
 const roadsBunFile = Bun.file(roadsFile)
 const roadsFeatures: ReturnType<typeof roadData>[] = (await roadsBunFile.json()).features

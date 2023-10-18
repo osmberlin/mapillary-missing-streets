@@ -2,7 +2,7 @@ import * as turf from '@turf/turf'
 import { inputBbox } from '../config.const'
 import { downloadData } from './utils/downloadData'
 
-console.log('START', 'Starting', import.meta.dir)
+console.log('START', 'Starting', import.meta.file)
 
 // Create the outer grid of squares
 const initialCellSplit = 0.5
