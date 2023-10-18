@@ -1,9 +1,10 @@
 import * as turf from '@turf/turf'
-import { resumeApiErrorsWriter } from './files'
-import { Square } from './downloadData'
 import { apiResponseSchema } from './apiResponseSchema'
 import { apiUrl } from './apiUrl'
+import { Square } from './downloadData'
+import { resumeApiErrorsWriter } from './files'
 import { lineFromObject } from './lineFromObject'
+import { Bbox } from './types'
 
 export type ResumeApiError = {
   errorSource: string
@@ -11,13 +12,14 @@ export type ResumeApiError = {
   responseError: string
   url: string
   cellSplit: number
-  bbox: ReturnType<typeof turf.bbox>
+  bbox: Bbox
+  picturesNewerThanDate: string
   square: Square
 }
 
-export const downloadAndValidate = async (square: Square) => {
+export const downloadAndValidate = async (square: Square, picturesNewerThanDate: string) => {
   const bbox = turf.bbox(square)
-  const url = apiUrl(bbox)
+  const url = apiUrl(bbox, picturesNewerThanDate)
   const cellSplit = square.properties.cellSplit
 
   console.log('\n', 'NEXT', 'Downloading', url)
@@ -31,6 +33,7 @@ export const downloadAndValidate = async (square: Square) => {
       responseError: response.statusText,
       url,
       cellSplit,
+      picturesNewerThanDate,
       bbox,
       square,
     }
@@ -50,6 +53,7 @@ export const downloadAndValidate = async (square: Square) => {
       responseError: JSON.stringify(validatedData.error),
       url,
       cellSplit,
+      picturesNewerThanDate,
       bbox,
       square,
     }

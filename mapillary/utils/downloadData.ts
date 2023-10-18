@@ -1,7 +1,9 @@
 import * as turf from '@turf/turf'
+import { formatISO } from 'date-fns'
 import { Feature, GeoJsonProperties, Polygon } from 'geojson'
 import { MAPILARY_API_LIMIT } from './apiUrl'
 import { bboxToSqkm } from './bboxToSqkm'
+import { createGrid } from './createGrid'
 import { downloadAndValidate } from './downloadAndValidate'
 import {
   debugPicturesWriter,
@@ -13,8 +15,8 @@ import { lineFromObject } from './lineFromObject'
 import { debuggingPictureFeature, pictureFeature } from './pictureFeatures'
 
 export type Square = Feature<Polygon, GeoJsonProperties & { cellSplit: number }>
-export async function downloadData(square: Square) {
-  const validatedData = await downloadAndValidate(square)
+export async function downloadData(square: Square, fromDate: string) {
+  const validatedData = await downloadAndValidate(square, fromDate)
   resumeApiErrorsWriter.flush()
   if (!validatedData) return
 
@@ -25,6 +27,8 @@ export async function downloadData(square: Square) {
         pictureCount: validatedData.length,
         cellSplit: square.properties.cellSplit,
         cellSqkm: bboxToSqkm(square),
+        fromDate,
+        toDate: formatISO(new Date()),
       }),
     ),
   )
@@ -56,13 +60,10 @@ export async function downloadData(square: Square) {
   // Split the bbox into 4 sub-squares
   const cellSplit = square.properties.cellSplit / 2
   const bbox = turf.bbox(square)
-  const subSquares = turf.squareGrid(bbox, cellSplit, {
-    units: 'kilometers',
-    properties: { cellSplit },
-  }).features
+  const subSquares = createGrid(bbox, cellSplit)
 
   // Process the data for each sub-square
   for (const subSquare of subSquares) {
-    await downloadData(subSquare)
+    await downloadData(subSquare, fromDate)
   }
 }

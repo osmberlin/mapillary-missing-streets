@@ -6,6 +6,7 @@
   "scripts": {
     "mapillary": "bun mapillary/mapillary.ts",
     "mapillary:retry": "bun mapillary/retryApiErrors.ts",
+    "mapillary:update": "bun mapillary/update.ts && bun mapillary/deduplicate.ts",
     "roads": "bun roads/roads.ts",
     "matching": "bun matching/matching.ts"
   },

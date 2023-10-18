@@ -1,3 +1,4 @@
+import { format, parseISO } from 'date-fns'
 import { ResumeApiError } from './utils/downloadAndValidate'
 import { downloadData } from './utils/downloadData'
 import {
@@ -30,10 +31,22 @@ const lines = raw.split('\n').filter(Boolean)
 for (const [index, line] of lines.entries()) {
   try {
     const json = JSON.parse(line) satisfies ResumeApiError
-    await downloadData(json.square)
+    await downloadData(json.square, json.fromDate)
 
-    // now that it was processed, we remove the line
+    // Now that it was processed, we remove the line
     delete lines[index]
+
+    // Some some helpful note when dates missmatch
+    const currentToDate = format(new Date(), 'yyyy-MM-dd')
+    const loggedToDate = format(parseISO(json.toDate), 'yyyy-MM-dd')
+    if (currentToDate !== loggedToDate) {
+      console.log(
+        'INFO',
+        'Remember that we used the `fromDate` stored in the logs but fetch all the latest pictures. Those dates do not match, which means your data is out of sync. Run an update to smooth this over.',
+        { currentToDate, loggedToDate },
+      )
+      // Also note: We do not call logRuns() in this file because those re-runs are considered part of the inital or update run. We do not want to reset the timer by calling logRuns().
+    }
   } catch (error) {
     console.error('ERROR', error, 'with line', line)
     continue

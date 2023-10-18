@@ -6,11 +6,17 @@
 ## How to use
 
 1. Update the `inputBbox` in `./config.const.ts`
-2. Run `npm run mapillary` to fetch and store the raw mapillary API output as well as the processed pictures
-3. If needed, run `npm run mapillary:retry` to retry api requests that failed
-4. Run `npm run roads` to fetch and prepare the road network from OpenStreetMap (Overpass)
-5. Run `npm run matching` to create the final road network which holds information in the mapillary pictures that are part of the buffer of the given road segment
-6. Use `./matching/data/matchedRoads.geojson` to plan your next trip
+2. **Fetch images:**
+
+   - First run: Use `npm run mapillary` to fetch and store the raw mapillary API output as well as the processed pictures
+   - Update run: Use `npm run mapillary:update` to update a previous first run with fresh images
+   - API Errors: If needed, run `npm run mapillary:retry` to retry api requests that failed
+
+3. **Fetch roads:**
+   Run `npm run roads` to fetch and prepare the road network from OpenStreetMap (Overpass)
+4. **Create target data:**
+   Run `npm run matching` to create the final road network which holds information in the mapillary pictures that are part of the buffer of the given road segment
+5. Use `./matching/data/matchedRoads.geojson` to plan your next trip
 
 ## Concept
 
@@ -28,6 +34,16 @@
   ```
 - Unfortunatelly the API fetching part is a bit more complex. The [Mapillary API](https://www.mapillary.com/developer/api-documentation) returns max 2,000 images. To handle this, we first split our `inputBbox` in squares and then make those squares smaller until we get a result set below 2,000 images. Then we need to handle random API errors by retrying only the failed squares.
 
+### Retry
+
+When fetching Mapillary API data fails, we log those issues in `./mapillary/apiErrorLog.jsonl`. Use `npm run mapillary:update` to only retry the failed areas.
+
+### Update
+
+When we fetch data, we store the run in `./mapillary/data/runLog.jsonl` (`inputBbox` and dates). Use `npm run mapillary:update` to add the newest images to this list.
+
+For a given `inputBbox`, we take the date of the latest pictures. We set the new `picturesNewerThanDate` date to 14 days prior to this date to be sure to get all new images (considering processing time). Afterwards we merge the api responses and dedupliate the result.
+
 ## Development
 
 This project was created using [Bun](https://bun.sh).
@@ -40,15 +56,6 @@ This project was created using [Bun](https://bun.sh).
 ### Map
 
 We need a map to look at this data.
-
-### Resumability
-
-What if we want to update the data for a big region? We should add a `/mapillary/resume.ts` which polls the API for a given time frame like…
-
-- start date: time of last run minus 14 days; we need a buffer to make sure images that where uploaded but not availabe, yet are presetnt
-- end date: null / today
-
-We then need to merge the datasets, remove duplicates and append our new data.
 
 ### Routing
 

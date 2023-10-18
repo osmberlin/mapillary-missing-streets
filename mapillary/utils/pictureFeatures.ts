@@ -29,6 +29,7 @@ export function debuggingPictureFeature(apiPicture: Item) {
   return turf.point(apiPicture.geometry.coordinates, {
     ...apiPicture,
     debugUrl: `https://www.mapillary.com/app/?focus=photo&pKey=${apiPicture.id}`,
+    fetchedAtIso: formatISO(new Date()),
     geometry: undefined,
   })
 }
