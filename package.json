@@ -8,12 +8,14 @@
     "mapillary:retry": "bun mapillary/retryApiErrors.ts",
     "mapillary:update": "bun mapillary/update.ts && bun mapillary/deduplicate.ts",
     "roads": "bun roads/roads.ts",
-    "matching": "bun matching/matching.ts"
+    "matching": "bun matching/matching.ts",
+    "upload": "bun upload/createPmtiles.ts && bun upload/upload.ts"
   },
   "author": "Tobias Jordans <t@tobiasjordans.de>",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.430.0",
     "@turf/turf": "7.0.0-alpha.2",
     "@types/node": "^20.8.6",
     "bun-types": "latest",
