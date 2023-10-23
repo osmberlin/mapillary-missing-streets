@@ -78,10 +78,6 @@ Create routes based on this data; a good starting point for this is https://pret
 
 Question asked at https://community.openstreetmap.org/t/routing-a-way-to-link-to-a-router-for-chinese-postman-routing/105132/1
 
-### Progress
-
-Add some progress via index "9 of 20" to the mapillary process script.
-
 ### Split roads
 
 Right now, we take the OSM road segments as they are. However, long roads will have issues with this approach. Ideally we would split roads somehow – eg. on relevant intersections – to get more actionable results.

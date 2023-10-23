@@ -13,6 +13,7 @@ import {
 } from './files'
 import { lineFromObject } from './lineFromObject'
 import { debuggingPictureFeature, pictureFeature } from './pictureFeatures'
+import { consoleLogProgress } from './consoleLogProgress'
 
 export type Square = Feature<Polygon, GeoJsonProperties & { cellSplit: number }>
 export async function downloadData(square: Square, fromDate: string) {
@@ -60,10 +61,11 @@ export async function downloadData(square: Square, fromDate: string) {
   // Split the bbox into 4 sub-squares
   const cellSplit = square.properties.cellSplit / 2
   const bbox = turf.bbox(square)
-  const subSquares = createGrid(bbox, cellSplit)
+  const subGrid = createGrid(bbox, cellSplit)
 
   // Process the data for each sub-square
-  for (const subSquare of subSquares) {
+  for (const [index, subSquare] of subGrid.entries()) {
+    consoleLogProgress(index, subGrid.length)
     await downloadData(subSquare, fromDate)
   }
 }

@@ -12,6 +12,7 @@ import {
   retryApiErrorsFile,
 } from './utils/files'
 import { lineFromObject } from './utils/lineFromObject'
+import { consoleLogProgress } from './utils/consoleLogProgress'
 
 console.log('START', 'Starting', import.meta.file)
 
@@ -29,6 +30,7 @@ const raw = await file.text()
 // If successfull, we remove it…
 const lines = raw.split('\n').filter(Boolean)
 for (const [index, line] of lines.entries()) {
+  consoleLogProgress(index, lines.length)
   try {
     const json = JSON.parse(line) satisfies ResumeApiError
     await downloadData(json.square, json.fromDate)

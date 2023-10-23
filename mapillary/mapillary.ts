@@ -1,4 +1,5 @@
 import { inputBbox, picturesNewerThanDate } from '../config.const'
+import { consoleLogProgress } from './utils/consoleLogProgress'
 import { createGrid } from './utils/createGrid'
 import { downloadData } from './utils/downloadData'
 import { logRuns } from './utils/logRuns'
@@ -13,6 +14,7 @@ const grid = createGrid(inputBbox)
 // Download the data for each square in the grid
 // `downloadData` will split the grid smaller until the API
 // returns all results of a grid square
-for (const square of grid) {
+for (const [index, square] of grid.entries()) {
+  consoleLogProgress(index, grid.length)
   await downloadData(square, picturesNewerThanDate)
 }
