@@ -8,7 +8,15 @@ export const apiResponseSchema = z.object({
         type: z.literal('Point'),
         coordinates: z.array(z.number()),
       }),
-      camera_type: z.enum(['perspective', 'fisheye', 'equirectangular', 'spherical']).optional(),
+      camera_type: z
+        .enum([
+          'perspective',
+          'fisheye',
+          'equirectangular',
+          'spherical',
+          'brown', // non-documented value
+        ])
+        .optional(),
       captured_at: z.number(),
       sequence: z.string(),
     }),

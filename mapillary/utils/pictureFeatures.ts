@@ -13,6 +13,9 @@ import { apiResponseSchema } from './apiResponseSchema'
 // - `spherical`
 //   Eg. 360° GoPro Max – https://www.mapillary.com/app/?pKey=573820750694387&focus=photo
 //   => This is, what we will treat as panoramic picture.
+// - `brown`
+//   Eg. GoPro HERO8 Black – https://www.mapillary.com/app/?pKey=549413613449738&focus=photo
+//   ARG, undocumented value
 
 type Item = Zod.infer<typeof apiResponseSchema>['data'][number]
 export function pictureFeature(apiPicture: Item) {
