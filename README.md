@@ -53,13 +53,34 @@ This project was created using [Bun](https://bun.sh).
 
 ## Roadmap / Whish list
 
-### Map
+### WIP: Map
 
 We need a map to look at this data.
+
+### Map: Show dates
+
+On the Map website, we want to show how old the data is and when the last update was. Idea: Add a mapillary-missing-streets-status.json that we push onthe S3 bucket as well. Fetch this in the Map website to display the data. Something like…
+
+```js
+{
+   bbox: [1,3,2,4],
+   runs: [
+      {updateDate: 'date', fromDate: 'date', toDate: 'date', pictures: '110'}
+      {updateDate: 'date', fromDate: 'date', toDate: 'date', pictures: '120'}
+      {updateDate: 'date', fromDate: 'date', toDate: 'date', pictures: '130'}
+   ]
+}
+```
 
 ### Routing
 
 Create routes based on this data; a good starting point for this is https://pretalx.com/fossgis2022/talk/EU8RPG/.
+
+Question asked at https://community.openstreetmap.org/t/routing-a-way-to-link-to-a-router-for-chinese-postman-routing/105132/1
+
+### Progress
+
+Add some progress via index "9 of 20" to the mapillary process script.
 
 ### Split roads
 
