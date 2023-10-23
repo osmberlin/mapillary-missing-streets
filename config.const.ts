@@ -1,10 +1,10 @@
 import { endOfDay, formatISO, sub } from 'date-fns'
 import { Bbox } from './mapillary/utils/types'
 
-//
+const berlinInnenstadt = [13.2823206, 52.4648758, 13.4757235, 52.5497578]
 const rixdorf = [13.442082133594909, 52.46983812263238, 13.452600180270991, 52.47440204208928]
 const neukoelln = [13.398995963556473, 52.44934150399865, 13.479223225323494, 52.489736608614635]
-export const inputBbox = rixdorf as Bbox
+export const inputBbox = berlinInnenstadt as Bbox
 
 export const consideredFreshYears = 2
 
