@@ -13,13 +13,13 @@ export type ResumeApiError = {
   url: string
   cellSplit: number
   bbox: Bbox
-  picturesNewerThanDate: string
+  fromDate: string
   square: Square
 }
 
-export const downloadAndValidate = async (square: Square, picturesNewerThanDate: string) => {
+export const downloadAndValidate = async (square: Square, fromDate: string) => {
   const bbox = turf.bbox(square)
-  const url = apiUrl(bbox, picturesNewerThanDate)
+  const url = apiUrl(bbox, fromDate)
   const cellSplit = square.properties.cellSplit
 
   console.log('\n', 'NEXT', 'Downloading', url)
@@ -33,7 +33,7 @@ export const downloadAndValidate = async (square: Square, picturesNewerThanDate:
       responseError: response.statusText,
       url,
       cellSplit,
-      picturesNewerThanDate,
+      fromDate,
       bbox,
       square,
     }
@@ -53,7 +53,7 @@ export const downloadAndValidate = async (square: Square, picturesNewerThanDate:
       responseError: JSON.stringify(validatedData.error),
       url,
       cellSplit,
-      picturesNewerThanDate,
+      fromDate,
       bbox,
       square,
     }
