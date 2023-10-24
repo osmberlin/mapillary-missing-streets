@@ -31,9 +31,9 @@ console.log('INFO', 'Write', overpassRoads)
 Bun.write(overpassRoads, JSON.stringify(overpassGeoJson, undefined, 2))
 
 console.log('INFO', 'Write', bufferedRoads)
-// Hacky: We just overwrite the existing object to store it for debuggin…
+// Hacky: We just overwrite the existing object to store it for debugging…
 for (const road of preparedRoads as any) {
   road.geometry = road.properties.bufferGeometry
   delete road.properties.bufferGeometry
 }
-Bun.write(bufferedRoads, JSON.stringify(preparedRoads, undefined, 2))
+Bun.write(bufferedRoads, JSON.stringify(turf.featureCollection(preparedRoads), undefined, 2))
