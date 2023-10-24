@@ -1,4 +1,5 @@
-import { format, parseISO } from 'date-fns'
+import { isSameDay, parseISO } from 'date-fns'
+import { consoleLogProgress } from './utils/consoleLogProgress'
 import { ResumeApiError } from './utils/downloadAndValidate'
 import { downloadData } from './utils/downloadData'
 import {
@@ -12,7 +13,6 @@ import {
   retryApiErrorsFile,
 } from './utils/files'
 import { lineFromObject } from './utils/lineFromObject'
-import { consoleLogProgress } from './utils/consoleLogProgress'
 
 console.log('START', 'Starting', import.meta.file)
 
@@ -39,9 +39,9 @@ for (const [index, line] of lines.entries()) {
     delete lines[index]
 
     // Some some helpful note when dates missmatch
-    const currentToDate = format(new Date(), 'yyyy-MM-dd')
-    const loggedToDate = format(parseISO(json.toDate), 'yyyy-MM-dd')
-    if (currentToDate !== loggedToDate) {
+    const currentToDate = new Date()
+    const loggedToDate = parseISO(json.fromDate)
+    if (isSameDay(currentToDate, loggedToDate)) {
       console.log(
         'INFO',
         'Remember that we used the `fromDate` stored in the logs but fetch all the latest pictures. Those dates do not match, which means your data is out of sync. Run an update to smooth this over.',
