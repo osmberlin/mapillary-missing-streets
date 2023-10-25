@@ -18,7 +18,7 @@ for (const file of pmtilesFiles) {
   const Body = (await bunFile.arrayBuffer()) as any
   const ContentType = 'application/x-protobuf'
 
-  s3.putObject({ Bucket: 'atlas-tiles', Key, Body, ContentType }, (err, _data) => {
+  s3.putObject({ Bucket: 'atlas-tiles', Key, Body, ContentType }, (err: any, _data: any) => {
     if (err) {
       console.error(err)
       return

@@ -1,5 +1,6 @@
 import { endOfDay, formatISO, parseISO, sub } from 'date-fns'
 import { inputBbox } from '../config.const'
+import { createGrid } from './utils/createGrid'
 import { downloadData } from './utils/downloadData'
 import {
   debugPicturesBunFile,
@@ -11,17 +12,15 @@ import {
   runLogBunFile,
 } from './utils/files'
 import { LogRun, logRuns } from './utils/logRuns'
-import { createGrid } from './utils/createGrid'
-import { lineFromObject } from './utils/lineFromObject'
 
 console.log('START', 'Starting', import.meta.file)
 
 // Find log entries for our inputBbox
 const rawLog = await runLogBunFile.text()
-const log: LogRun[] = rawLog
+const log = rawLog
   .split('\n')
   .filter(Boolean)
-  .map((line) => JSON.parse(line))
+  .map((line) => JSON.parse(line) as LogRun)
 const logForBbox = log
   // Reminder: Comparing arrays need a string-workaround…
   .filter((entry) => JSON.stringify(entry.inputBbox) === JSON.stringify(inputBbox))

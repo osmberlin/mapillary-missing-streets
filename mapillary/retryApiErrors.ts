@@ -32,7 +32,7 @@ const lines = rawFileContent.split('\n').filter(Boolean)
 for (const [index, line] of lines.entries()) {
   consoleLogProgress(index, lines.length)
   try {
-    const json = JSON.parse(line) satisfies ResumeApiError
+    const json = JSON.parse(line) as ResumeApiError
     await downloadData(json.square, json.fromDate)
 
     // Now that it was processed, we remove the line

@@ -13,8 +13,7 @@ console.log('START', 'Starting', import.meta.file)
 console.log('INFO', 'Handle debugPicture')
 {
   const rawDebugPictures = await debugPicturesBunFile.text()
-  const debugPictures: ReturnType<typeof debuggingPictureFeature>[] =
-    parseGeojsonL(rawDebugPictures)
+  const debugPictures = parseGeojsonL<ReturnType<typeof debuggingPictureFeature>>(rawDebugPictures)
   const filteredDebugPictures = removeDuplicates(debugPictures)
   console.log('INFO', 'Handle debugPicture', {
     before: debugPictures.length,
@@ -29,7 +28,7 @@ console.log('INFO', 'Handle debugPicture')
 console.log('INFO', 'Handle pictures')
 {
   const rawPictures = await picturesBunFile.text()
-  const pictures: ReturnType<typeof pictureFeature>[] = parseGeojsonL(rawPictures)
+  const pictures = parseGeojsonL<ReturnType<typeof pictureFeature>>(rawPictures)
   const filteredPictures = removeDuplicates(pictures)
   console.log('INFO', 'Handle pictures', {
     before: pictures.length,
@@ -41,13 +40,13 @@ console.log('INFO', 'Handle pictures')
 }
 
 // HELPER
-function parseGeojsonL(input: string) {
+function parseGeojsonL<T>(input: string) {
   return input
     .split('\n')
     .filter(Boolean)
     .map((line) => {
       try {
-        return JSON.parse(line)
+        return JSON.parse(line) as T
       } catch (error) {
         console.log('ERROR', error)
       }

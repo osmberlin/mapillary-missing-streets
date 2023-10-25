@@ -13,10 +13,10 @@ const roadsFeatures: ReturnType<typeof roadData>[] = (await roadsBunFile.json())
 const imagesBunFile = Bun.file(picturesFile)
 const imageFileLines = await imagesBunFile.text()
 // points are stored as .geojsonl. We have to split by lines, then parse each line / feature.
-const imagesFeatures: ReturnType<typeof pictureFeature>[] = imageFileLines
+const imagesFeatures = imageFileLines
   .split('\n')
   .filter(Boolean)
-  .map((l) => JSON.parse(l))
+  .map((l) => JSON.parse(l) as ReturnType<typeof pictureFeature>)
 
 // Prepare the calcuation to deside if a road has enough images to be fully caputres
 const speedKmh = 18 // Average speed when capturing images
