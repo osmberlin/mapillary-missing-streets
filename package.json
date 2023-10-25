@@ -9,7 +9,8 @@
     "mapillary:update": "bun mapillary/update.ts && bun mapillary/deduplicate.ts",
     "roads": "bun roads/roads.ts",
     "matching": "bun matching/matching.ts",
-    "upload": "bun upload/createPmtiles.ts && bun upload/upload.ts"
+    "upload": "bun upload/createPmtiles.ts && bun upload/upload.ts",
+    "type-check": "tsc --noEmit"
   },
   "author": "Tobias Jordans <t@tobiasjordans.de>",
   "license": "ISC",
