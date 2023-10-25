@@ -9,8 +9,9 @@ import {
   debugSquaresWriter,
   picturesBunFile,
   picturesWriter,
-  resumeApiErrorsWriter,
+  retryApiErrorsBunFile,
   retryApiErrorsFile,
+  retryApiErrorsWriter,
 } from './utils/files'
 import { lineFromObject } from './utils/lineFromObject'
 
@@ -23,12 +24,11 @@ debugPicturesWriter.write(`${await debugPicturesBunFile.text()}\n\n\n`)
 picturesWriter.write(`${await picturesBunFile.text()}\n\n\n`)
 
 // We work on the api errors one line at a time
-const file = Bun.file(retryApiErrorsFile)
-const raw = await file.text()
+const rawFileContent = await retryApiErrorsBunFile.text()
 
 // Handle each error line separately
 // If successfull, we remove it…
-const lines = raw.split('\n').filter(Boolean)
+const lines = rawFileContent.split('\n').filter(Boolean)
 for (const [index, line] of lines.entries()) {
   consoleLogProgress(index, lines.length)
   try {
@@ -65,11 +65,11 @@ for (const [index, remainingLine] of lines.entries()) {
     )
     continue
   }
-  resumeApiErrorsWriter.write(lineFromObject(remainingLine))
+  retryApiErrorsWriter.write(lineFromObject(remainingLine))
 }
 
 console.log('INFO', 'Close all file writers')
 debugSquaresWriter.end()
 debugPicturesWriter.end()
 picturesWriter.end()
-resumeApiErrorsWriter.end()
+retryApiErrorsWriter.end()

@@ -7,7 +7,7 @@ import {
   debugSquaresWriter,
   picturesBunFile,
   picturesWriter,
-  resumeApiErrorsWriter,
+  retryApiErrorsWriter,
   runLogBunFile,
 } from './utils/files'
 import { LogRun, logRuns } from './utils/logRuns'
@@ -59,4 +59,4 @@ console.log('INFO', 'Close all file writers')
 debugSquaresWriter.end()
 debugPicturesWriter.end()
 picturesWriter.end()
-resumeApiErrorsWriter.end()
+retryApiErrorsWriter.end()

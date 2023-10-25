@@ -9,7 +9,7 @@ import {
   debugPicturesWriter,
   debugSquaresWriter,
   picturesWriter,
-  resumeApiErrorsWriter,
+  retryApiErrorsWriter,
 } from './files'
 import { lineFromObject } from './lineFromObject'
 import { debuggingPictureFeature, pictureFeature } from './pictureFeatures'
@@ -18,7 +18,7 @@ import { consoleLogProgress } from './consoleLogProgress'
 export type Square = Feature<Polygon, GeoJsonProperties & { cellSplit: number }>
 export async function downloadData(square: Square, fromDate: string) {
   const validatedData = await downloadAndValidate(square, fromDate)
-  resumeApiErrorsWriter.flush()
+  retryApiErrorsWriter.flush()
   if (!validatedData) return
 
   // Debugging: Store the used grid square

@@ -2,7 +2,7 @@ import * as turf from '@turf/turf'
 import { apiResponseSchema } from './apiResponseSchema'
 import { apiUrl } from './apiUrl'
 import { Square } from './downloadData'
-import { resumeApiErrorsWriter } from './files'
+import { retryApiErrorsWriter } from './files'
 import { lineFromObject } from './lineFromObject'
 import { Bbox } from './types'
 
@@ -38,7 +38,7 @@ export const downloadAndValidate = async (square: Square, fromDate: string) => {
       square,
     }
     console.error('ERROR', `${error.errorSource}: ${error.responseStatus} ${error.responseError}`)
-    resumeApiErrorsWriter.write(lineFromObject(error))
+    retryApiErrorsWriter.write(lineFromObject(error))
     return
   }
 
@@ -58,7 +58,7 @@ export const downloadAndValidate = async (square: Square, fromDate: string) => {
       square,
     }
     console.error('ERROR', `${error.errorSource}: ${error.responseError}`)
-    resumeApiErrorsWriter.write(lineFromObject(error))
+    retryApiErrorsWriter.write(lineFromObject(error))
     return
   }
 
