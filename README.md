@@ -57,6 +57,10 @@ This project was created using [Bun](https://bun.sh).
 
 We need a map to look at this data.
 
+### Bug: Improve retry
+
+See `retryCleanupApiErrorLog.ts` for a hotfix.
+
 ### Map: Show dates
 
 On the Map website, we want to show how old the data is and when the last update was. Idea: Add a mapillary-missing-streets-status.json that we push onthe S3 bucket as well. Fetch this in the Map website to display the data. Something like…
