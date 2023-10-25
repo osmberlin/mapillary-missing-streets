@@ -14,7 +14,7 @@ console.log('INFO', 'Handle debugPicture')
 {
   const rawDebugPictures = await debugPicturesBunFile.text()
   const debugPictures: ReturnType<typeof debuggingPictureFeature>[] =
-    parseGeosjonL(rawDebugPictures)
+    parseGeojsonL(rawDebugPictures)
   const filteredDebugPictures = removeDuplicates(debugPictures)
   console.log('INFO', 'Handle debugPicture', {
     before: debugPictures.length,
@@ -29,7 +29,7 @@ console.log('INFO', 'Handle debugPicture')
 console.log('INFO', 'Handle pictures')
 {
   const rawPictures = await picturesBunFile.text()
-  const pictures: ReturnType<typeof pictureFeature>[] = parseGeosjonL(rawPictures)
+  const pictures: ReturnType<typeof pictureFeature>[] = parseGeojsonL(rawPictures)
   const filteredPictures = removeDuplicates(pictures)
   console.log('INFO', 'Handle pictures', {
     before: pictures.length,
@@ -41,7 +41,7 @@ console.log('INFO', 'Handle pictures')
 }
 
 // HELPER
-function parseGeosjonL(input: string) {
+function parseGeojsonL(input: string) {
   return input
     .split('\n')
     .filter(Boolean)
