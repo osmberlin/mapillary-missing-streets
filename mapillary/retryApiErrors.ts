@@ -9,10 +9,8 @@ import {
   picturesBunFile,
   picturesWriter,
   retryApiErrorsBunFile,
-  retryApiErrorsFile,
   retryApiErrorsWriter,
 } from './utils/files'
-import { lineFromObject } from './utils/lineFromObject'
 import { writePicturesOrSplitSquare } from './utils/writePicturesOrSplitSquare'
 
 console.log('START', 'Starting', import.meta.file)
@@ -36,9 +34,6 @@ for (const [index, line] of lines.entries()) {
     const validatedData = await downloadValidateOrLogError(json.square, json.fromDate)
     await writePicturesOrSplitSquare(validatedData, json.square, json.fromDate)
 
-    // Now that it was processed, we remove the line
-    delete lines[index]
-
     // Some some helpful note when dates missmatch
     const currentToDate = new Date()
     const loggedToDate = parseISO(json.fromDate)
@@ -52,21 +47,9 @@ for (const [index, line] of lines.entries()) {
     }
   } catch (error) {
     console.error('ERROR', error, 'with line', line)
+    console.error('WARN', 'This error will not be logged. It will only show up here.')
     continue
   }
-}
-
-// Write whatever we could not recover back into the file
-for (const [index, remainingLine] of lines.entries()) {
-  if (!(typeof remainingLine === 'object' && Object.keys(remainingLine).length === 0)) {
-    console.log(
-      'Skipping line',
-      `(please clenaup ${retryApiErrorsFile} manually)`,
-      JSON.stringify(remainingLine),
-    )
-    continue
-  }
-  retryApiErrorsWriter.write(lineFromObject(remainingLine))
 }
 
 console.log('INFO', 'Close all file writers')
