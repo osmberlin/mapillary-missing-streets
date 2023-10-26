@@ -1,9 +1,9 @@
 // File paths
-export const debugSquaresFile = './mapillary/debugging/squares.geojsonl'
-export const debugPicturesFile = './mapillary/debugging/pictures.geojsonl'
-export const retryApiErrorsFile = './mapillary/retryApiErrors/apiErrorLog.jsonl'
-export const picturesFile = './mapillary/data/pictures.geojsonl'
-export const runLogFile = './mapillary/data/runLog.jsonl'
+export const debugSquaresFile = './data/current/squares.geojsonl'
+export const debugPicturesFile = './data/current/picturesDebuggingApiData.geojsonl'
+export const retryApiErrorsFile = './data/current/apiErrorLog.jsonl'
+export const picturesFile = './data/current/pictures.geojsonl'
+export const runLogFile = './data/current/runLog.jsonl'
 
 // BunFile handler
 export const debugSquaresBunFile = Bun.file(debugSquaresFile)

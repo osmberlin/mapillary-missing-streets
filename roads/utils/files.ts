@@ -1,3 +1,3 @@
-export const roadsFile = './roads/data/roads.geojson'
-export const overpassRoads = './roads/debugging/overpassRoads.geojson'
-export const bufferedRoads = './roads/debugging/bufferedRoads.geojson'
+export const roadsFile = './data/current/roads.geojson'
+export const overpassRoads = './data/current/roadsDebuggingOverpass.geojson'
+export const bufferedRoads = './data/current/roadsDebuggingBuffered.geojson'

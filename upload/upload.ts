@@ -9,12 +9,12 @@ const s3 = new S3({
 console.log('START', 'Uploading file to S3 bucket atlas-tiles', import.meta.file)
 
 const pmtilesFiles = fs
-  .readdirSync(path.resolve(import.meta.dir, '../matching/data'))
+  .readdirSync(path.resolve(import.meta.dir, '../data/current'))
   .filter((file) => path.extname(file) === '.pmtiles')
 
 for (const file of pmtilesFiles) {
   const Key = file
-  const bunFile = Bun.file(path.resolve(import.meta.dir, '../matching/data', file))
+  const bunFile = Bun.file(path.resolve(import.meta.dir, '../data/current', file))
   const Body = (await bunFile.arrayBuffer()) as any
   const ContentType = 'application/x-protobuf'
 

@@ -1,3 +1,3 @@
-export const matchedRoadsFile = './matching/data/matchedRoads.geojson'
-export const matchedRoadsPmTilesFile = './matching/debugging/matchedRoads.pmtiles'
-export const matchingDebuggingRoadsFile = './matching/debugging/matchedRoads.geojson'
+export const matchedRoadsFile = './data/current/roadsMatched.geojson'
+export const matchedRoadsPmTilesFile = './data/current/roadsMatched.pmtiles'
+export const matchingDebuggingRoadsFile = './data/current/roadsMatched.geojson'
