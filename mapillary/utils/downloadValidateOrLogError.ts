@@ -1,10 +1,10 @@
 import * as turf from '@turf/turf'
 import { apiResponseSchema } from './apiResponseSchema'
 import { apiUrl } from './apiUrl'
-import { Square } from './downloadData'
 import { retryApiErrorsWriter } from './files'
 import { lineFromObject } from './lineFromObject'
 import { Bbox } from './types'
+import { Square } from './writePicturesOrSplitSquare'
 
 export type ResumeApiError = {
   errorSource: string
@@ -17,7 +17,7 @@ export type ResumeApiError = {
   square: Square
 }
 
-export const downloadAndValidate = async (square: Square, fromDate: string) => {
+export const downloadValidateOrLogError = async (square: Square, fromDate: string) => {
   const bbox = turf.bbox(square)
   const url = apiUrl(bbox, fromDate)
   const cellSplit = square.properties.cellSplit

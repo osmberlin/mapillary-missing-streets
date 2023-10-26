@@ -1,7 +1,7 @@
 import { endOfDay, formatISO, parseISO, sub } from 'date-fns'
 import { inputBbox } from '../config.const'
 import { createGrid } from './utils/createGrid'
-import { downloadData } from './utils/downloadData'
+import { downloadValidateOrLogError } from './utils/downloadValidateOrLogError'
 import {
   debugPicturesBunFile,
   debugPicturesWriter,
@@ -12,6 +12,7 @@ import {
   runLogBunFile,
 } from './utils/files'
 import { LogRun, logRuns } from './utils/logRuns'
+import { writePicturesOrSplitSquare } from './utils/writePicturesOrSplitSquare'
 
 console.log('START', 'Starting', import.meta.file)
 
@@ -50,7 +51,8 @@ if (!logForBbox.length) {
 
   const grid = createGrid(lastRun.inputBbox)
   for (const square of grid) {
-    await downloadData(square, updateFromDate)
+    const validatedData = await downloadValidateOrLogError(square, updateFromDate)
+    await writePicturesOrSplitSquare(validatedData, square, updateFromDate)
   }
 }
 

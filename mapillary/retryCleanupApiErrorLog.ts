@@ -1,5 +1,5 @@
 import * as turf from '@turf/turf'
-import { ResumeApiError } from './utils/downloadAndValidate'
+import { ResumeApiError } from './utils/downloadValidateOrLogError'
 import { debugSquaresBunFile, retryApiErrorsBunFile, retryApiErrorsWriter } from './utils/files'
 import { lineFromObject } from './utils/lineFromObject'
 

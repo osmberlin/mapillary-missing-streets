@@ -1,8 +1,9 @@
 import { inputBbox, picturesNewerThanDate } from '../config.const'
 import { consoleLogProgress } from './utils/consoleLogProgress'
 import { createGrid } from './utils/createGrid'
-import { downloadData } from './utils/downloadData'
+import { downloadValidateOrLogError } from './utils/downloadValidateOrLogError'
 import { logRuns } from './utils/logRuns'
+import { writePicturesOrSplitSquare } from './utils/writePicturesOrSplitSquare'
 
 console.log('START', 'Starting', import.meta.file)
 
@@ -16,5 +17,7 @@ const grid = createGrid(inputBbox)
 // returns all results of a grid square
 for (const [index, square] of grid.entries()) {
   consoleLogProgress(index, grid.length)
-  await downloadData(square, picturesNewerThanDate)
+
+  const validatedData = await downloadValidateOrLogError(square, picturesNewerThanDate)
+  await writePicturesOrSplitSquare(validatedData, square, picturesNewerThanDate)
 }

@@ -3,8 +3,9 @@ import { formatISO } from 'date-fns'
 import { Feature, GeoJsonProperties, Polygon } from 'geojson'
 import { MAPILARY_API_LIMIT } from './apiUrl'
 import { bboxToSqkm } from './bboxToSqkm'
+import { consoleLogProgress } from './consoleLogProgress'
 import { createGrid } from './createGrid'
-import { downloadAndValidate } from './downloadAndValidate'
+import { downloadValidateOrLogError } from './downloadValidateOrLogError'
 import {
   debugPicturesWriter,
   debugSquaresWriter,
@@ -13,11 +14,13 @@ import {
 } from './files'
 import { lineFromObject } from './lineFromObject'
 import { debuggingPictureFeature, pictureFeature } from './pictureFeatures'
-import { consoleLogProgress } from './consoleLogProgress'
 
 export type Square = Feature<Polygon, GeoJsonProperties & { cellSplit: number }>
-export async function downloadData(square: Square, fromDate: string) {
-  const validatedData = await downloadAndValidate(square, fromDate)
+export async function writePicturesOrSplitSquare(
+  validatedData: Awaited<ReturnType<typeof downloadValidateOrLogError>>,
+  square: Square,
+  fromDate: string,
+) {
   retryApiErrorsWriter.flush()
   if (!validatedData) return
 
@@ -66,6 +69,7 @@ export async function downloadData(square: Square, fromDate: string) {
   // Process the data for each sub-square
   for (const [index, subSquare] of subGrid.entries()) {
     consoleLogProgress(index, subGrid.length)
-    await downloadData(subSquare, fromDate)
+    const validatedData = await downloadValidateOrLogError(square, fromDate)
+    await writePicturesOrSplitSquare(validatedData, subSquare, fromDate)
   }
 }

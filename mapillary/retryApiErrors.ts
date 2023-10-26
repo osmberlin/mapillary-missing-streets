@@ -1,7 +1,6 @@
 import { isSameDay, parseISO } from 'date-fns'
 import { consoleLogProgress } from './utils/consoleLogProgress'
-import { ResumeApiError } from './utils/downloadAndValidate'
-import { downloadData } from './utils/downloadData'
+import { ResumeApiError, downloadValidateOrLogError } from './utils/downloadValidateOrLogError'
 import {
   debugPicturesBunFile,
   debugPicturesWriter,
@@ -14,6 +13,7 @@ import {
   retryApiErrorsWriter,
 } from './utils/files'
 import { lineFromObject } from './utils/lineFromObject'
+import { writePicturesOrSplitSquare } from './utils/writePicturesOrSplitSquare'
 
 console.log('START', 'Starting', import.meta.file)
 
@@ -33,7 +33,8 @@ for (const [index, line] of lines.entries()) {
   consoleLogProgress(index, lines.length)
   try {
     const json = JSON.parse(line) as ResumeApiError
-    await downloadData(json.square, json.fromDate)
+    const validatedData = await downloadValidateOrLogError(json.square, json.fromDate)
+    await writePicturesOrSplitSquare(validatedData, json.square, json.fromDate)
 
     // Now that it was processed, we remove the line
     delete lines[index]
