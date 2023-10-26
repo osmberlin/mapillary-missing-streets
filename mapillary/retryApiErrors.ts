@@ -35,15 +35,17 @@ for (const [index, line] of lines.entries()) {
     await writePicturesOrSplitSquare(validatedData, json.square, json.fromDate)
 
     // Some some helpful note when dates missmatch
-    const currentToDate = new Date()
-    const loggedToDate = parseISO(json.fromDate)
-    if (isSameDay(currentToDate, loggedToDate)) {
-      console.log(
-        'INFO',
-        'Remember that we used the `fromDate` stored in the logs but fetch all the latest pictures. Those dates do not match, which means your data is out of sync. Run an update to smooth this over.',
-        { currentToDate, loggedToDate },
-      )
-      // Also note: We do not call logRuns() in this file because those re-runs are considered part of the inital or update run. We do not want to reset the timer by calling logRuns().
+    {
+      const currentToDate = new Date()
+      const loggedToDate = parseISO(json.fromDate)
+      if (isSameDay(currentToDate, loggedToDate)) {
+        console.log(
+          'INFO',
+          'Remember that we used the `fromDate` stored in the logs but fetch all the latest pictures. Those dates do not match, which means your data is out of sync. Run an update to smooth this over.',
+          { currentToDate, loggedToDate },
+        )
+        // Also note: We do not call logRuns() in this file because those re-runs are considered part of the inital or update run. We do not want to reset the timer by calling logRuns().
+      }
     }
   } catch (error) {
     console.error('ERROR', error, 'with line', line)
