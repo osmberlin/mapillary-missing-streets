@@ -37,7 +37,7 @@ const filteredLines = lines.filter((line, index) => {
   return !hasMatchingSquare
 })
 
-console.log(lines.length, 'vs', filteredLines.length)
+console.log('RESULT OLD vs NEW:', lines.length, 'vs', filteredLines.length)
 
 for (const line of filteredLines) {
   retryApiErrorsWriter.write(lineFromObject(line))
