@@ -1,7 +1,12 @@
 # Mapillary Missing Streets
 
 > 📸🗺️
+>
 > Learn which [OpenStreetMap](https://www.openstreetmap.org/) (OSM) street segments need fresh/current [Mapillary](https://www.mapillary.com/app/) images. And which of those don't have 360° images, yet. The resulting road data can be used to plan your next Mapillary image capturing trip.
+>
+> [**Show the map**](https://www.osm-verkehrswende.org/mapillary/map/)
+>
+> [Learn more](https://www.osm-verkehrswende.org/mapillary/)
 
 ## How to use
 
@@ -52,8 +57,6 @@ This project was created using [Bun](https://bun.sh).
 - Check out `npm run` for a list of scripts to use
 
 ## Roadmap / Whish list
-
-### WIP: Map
 
 ### Bug: Deduplication only works as Go script
 
