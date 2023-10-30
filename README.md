@@ -64,11 +64,22 @@ See `updateDeduplicate.go`. The TS solution took a day to run and did not finish
 
 Attention, right now it stores the results in `picturesDebuggingApiData_filtered.geojsonl` which means that
 
-### Bug: Improve retry
+### Bug: Fix retry script
 
 See `retryCleanupApiErrorLog.ts` for a hotfix.
 
-### Map: Show dates
+### Bug: Split bbox properly
+
+The turf function we use behaves differently than expected. It does not split the bbox by number, but created new boxes inside, which means we do not cover all the parents box right now. Which also means we are loosing images. This is not a real issue ATM because we always have enough images in this region.
+
+We should also think about only splitting once and then take the 2k images that Mapillary provides as a max, because those are enough for the given street. There might be edgecases, but it's better to save on API requests that to be super precise.
+
+### Improvement: Consider using the vector tile endpoints instead of API
+
+The API is unreliable and we have a lot of code that is required to retry, deduplicate and so on.
+An alternative way of getting the data is to fetch the vector tile endpoints a the zoom level that provides the most single picture data and then extract the GeoJSON out of there. The retry should be a lot simpler in this setup. And also the data is preprosessed, so no need to handle `image_type:brown` and stuff like that.
+
+### Feature: Show processing dates on the map
 
 On the Map website, we want to show how old the data is and when the last update was. Idea: Add a mapillary-missing-streets-status.json that we push onthe S3 bucket as well. Fetch this in the Map website to display the data. Something like…
 
