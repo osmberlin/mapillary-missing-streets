@@ -4,6 +4,7 @@ import { pictureFeature } from '../mapillary/utils/pictureFeatures'
 import { roadsFile } from '../roads/utils/files'
 import { roadData } from '../roads/utils/roadData'
 import { matchedRoadsFile, matchingDebuggingRoadsFile } from './utils/files'
+import { consoleLogProgress } from '../mapillary/utils/consoleLogProgress'
 
 console.log('START', 'Starting', import.meta.file)
 
@@ -31,7 +32,9 @@ const matchedRoads = []
 const matchedRoadsForDebugging = []
 
 console.log('INFO', 'Iterate over each road segement and find matching images')
-for (const road of roadsFeatures) {
+for (const [index, road] of roadsFeatures.entries()) {
+  consoleLogProgress(index, roadsFeatures.length)
+
   const pointsWithinRoad = []
   for (const point of imagesFeatures) {
     if (turf.booleanPointInPolygon(point.geometry.coordinates, road.properties.bufferGeometry)) {
