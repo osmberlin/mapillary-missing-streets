@@ -16,10 +16,10 @@ export const overpassQuery = `[out: json];
   way["highway"="pedestrian"]["area"!="yes"](${overpassBbox});
   way["highway"="road"]["area"!="yes"](${overpassBbox});
   way["highway"="cycleway"]["area"!="yes"]["is_sidepath"!="yes"](${overpassBbox});
-  way["highway"="path"]["area"!="yes"]["access"!="private"]["access"!="no"]["access"!="destination"]["is_sidepath"!="yes"]["bicycle"!="no"](${overpassBbox});
+  way["highway"="path"]["area"!="yes"]["access"!="private"]["access"!="emergency"]["access"!="customers"]["access"!="no"]["access"!="destination"]["is_sidepath"!="yes"]["bicycle"!="no"](${overpassBbox});
   way["highway"="footway"]["area"!="yes"]["bicycle"="yes"]["footway"!="sidewalk"](${overpassBbox});
-  way["highway"="track"]["area"!="yes"]["bicycle"!="no"]["access"!="private"]["access"!="no"]["access"!="destination"](${overpassBbox});
-  way["highway"="service"]["area"!="yes"]["service"!="driveway"]["service"!="parking_aisle"]["access"!="private"]["access"!="no"]["access"!="destination"](${overpassBbox});
+  way["highway"="track"]["area"!="yes"]["bicycle"!="no"]["access"!="private"]["access"!="emergency"]["access"!="customers"]["access"!="no"]["access"!="destination"](${overpassBbox});
+  way["highway"="service"]["area"!="yes"]["service"!="driveway"]["service"!="parking_aisle"]["access"!="private"]["access"!="emergency"]["access"!="customers"]["access"!="no"]["access"!="destination"](${overpassBbox});
 
   way["highway"="construction"]["construction"="primary"](${overpassBbox});
   way["highway"="construction"]["construction"="primary_link"](${overpassBbox});
