@@ -55,7 +55,11 @@ This project was created using [Bun](https://bun.sh).
 
 ### WIP: Map
 
-We need a map to look at this data.
+### Bug: Deduplication only works as Go script
+
+See `updateDeduplicate.go`. The TS solution took a day to run and did not finish. The Go version only takes a minute.
+
+Attention, right now it stores the results in `picturesDebuggingApiData_filtered.geojsonl` which means that
 
 ### Bug: Improve retry
 

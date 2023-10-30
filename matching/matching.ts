@@ -11,7 +11,9 @@ console.log('START', 'Starting', import.meta.file)
 const roadsBunFile = Bun.file(roadsFile)
 const roadsFeatures: ReturnType<typeof roadData>[] = (await roadsBunFile.json()).features
 
-const imagesBunFile = Bun.file(picturesFile)
+// TODO: The updateDedupliate.go script stores the results at a different place.
+// const imagesBunFile = Bun.file(picturesFile)
+const imagesBunFile = Bun.file('./data/current/pictures_filtered.geojsonl')
 const imageFileLines = await imagesBunFile.text()
 // points are stored as .geojsonl. We have to split by lines, then parse each line / feature.
 const imagesFeatures = imageFileLines
