@@ -1,5 +1,8 @@
 # Mapillary Missing Streets
 
+> [!WARNING]
+> This code never worked properly. See https://www.osm-verkehrswende.org/mapillary/ for a new take on this topic.
+
 > 📸🗺️
 >
 > Learn which [OpenStreetMap](https://www.openstreetmap.org/) (OSM) street segments need fresh/current [Mapillary](https://www.mapillary.com/app/) images. And which of those don't have 360° images, yet. The resulting road data can be used to plan your next Mapillary image capturing trip.
